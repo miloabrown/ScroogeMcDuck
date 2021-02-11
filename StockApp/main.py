@@ -17,8 +17,10 @@ temp_info = info.copy()
 temp_info = sorted(temp_info, key=lambda x: datetime.datetime.strptime((x[0]), '%m/%d/%Y')) 
 
 #--------------------------------------------------#
-
-def getSma(date):           #   function to get the sma5 for given date
+#
+#   function to get the sma5 for given date
+#
+def getSma(date):
     previous5 = []
     info_index = 0
     info_dates = []
@@ -41,10 +43,10 @@ def getSma(date):           #   function to get the sma5 for given date
     if sma==0:
         sma=1
     return sma
-    
-
-
-def timeFrame(start,end):
+#   
+#function that returns a list of all the days within the given range ("start" and "end" included)
+#
+def timeFrame(start,end):       
     sub_Dates = []
     start_date = datetime.datetime.strptime(start, "%m/%d/%Y")
     end_date = datetime.datetime.strptime(end, "%m/%d/%Y")
@@ -53,8 +55,10 @@ def timeFrame(start,end):
         if(start_date <= day_date <= end_date):
             sub_Dates.append(day)
     return sub_Dates
-
-def longest_bull(dates):
+#
+#function for part A, returns the longest bullish trend within given range
+#
+def longest_bull(dates):    
     max_result = 0
     result = 0
     for index in range(0,len(dates)):
@@ -70,8 +74,13 @@ def longest_bull(dates):
         max_result=result
     return max_result
 
-def highest_volume_price(dates):
-    volume_price={}
+#
+#   function for part B, returns a list of tuples, that contain the dates,
+#   trading volume and the difference between the "high" and "low" of that day.
+#   list is ordered by 1)trading volume (highest to lowest), 2) price change
+#
+def highest_volume_price(dates):     
+    volume_price={}                 
     ans_list = []
     for day in dates:
         volume_price[day.date] = (int(day.volume),float(day.p_change))
@@ -80,14 +89,21 @@ def highest_volume_price(dates):
         ans_list.append((key,str(sorted_vp[key][0]),str(sorted_vp[key][1])))
     return ans_list
 
+#
+#Function for part C, returns a list of tuples that contain dates and opening price compared to sma5 of the day as a percentage
+#List is in order: best opening price compared to sma5 first
+#
 def bestOpen(dates):
     ans=[]
     dates_cp = dates.copy()
     for day in dates:
         ans.append ((day.date,round(((day.open/getSma(day.date))-1),5)))  #rounded to 5 decimals. This can be tweaked for more precision.
-    ans = sorted(ans,key=lambda x : abs(x[1]),reverse=True)
+    ans = sorted(ans,key=lambda x : (x[1]),reverse=True)     # abs(x[1]) if we just the biggest value change instead of biggest positive change   
     return ans
 
+#
+#Creating a Day class just to make it easier to manage the different values of days
+#
 class Day:
     def __init__(self,date,close,volume,open,high,low):
         self.date_as_list = date.split("/")
