@@ -53,8 +53,8 @@ def getSma(date):
 #
 def timeFrame(start,end):       
     sub_Dates = []
-    start_date = datetime.datetime.strptime(start, "%m/%d/%Y")
-    end_date = datetime.datetime.strptime(end, "%m/%d/%Y")
+    start_date = min(datetime.datetime.strptime(start, "%m/%d/%Y"),datetime.datetime.strptime(end, "%m/%d/%Y"))
+    end_date = max(datetime.datetime.strptime(start, "%m/%d/%Y"),datetime.datetime.strptime(end, "%m/%d/%Y"))
     for day in info:
         day_date = datetime.datetime.strptime(day.date, "%m/%d/%Y")
         if(start_date <= day_date <= end_date):
