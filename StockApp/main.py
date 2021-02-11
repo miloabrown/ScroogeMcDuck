@@ -143,4 +143,3 @@ for i in lista_b:
 bestopen_list = bestOpen(timeFrame("01/21/2020","01/20/2021"))
 for day in bestopen_list:
     print(day)
-
