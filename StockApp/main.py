@@ -24,22 +24,27 @@ def getSma(date):
     previous5 = []
     info_index = 0
     info_dates = []
+    div = 1
     for day in info:
         info_dates.append(day.date)
     if date in info_dates:
         info_index = info_dates.index(date)
-        if info_index<5:
-            for i in(info[0:info_index]):
+        if info_index==0:
+            return info[0].close
+        elif info_index<5:
+            div = info_index
+            for i in(info[:info_index]):
                 previous5.append(i)
         else:
+            div = 5
             for i in(info[info_index-5:info_index]):
                 previous5.append(i)
     else:
         print("date not found")
     sum = 0
     for day in previous5:
-        sum+=float(day.close.replace("$",""))
-    sma = sum/5
+        sum+=day.close
+    sma = sum/div
     if sma==0:
         sma=1
     return sma
@@ -97,7 +102,7 @@ def bestOpen(dates):
     ans=[]
     dates_cp = dates.copy()
     for day in dates:
-        ans.append ((day.date,round(((day.open/getSma(day.date))-1),5)))  #rounded to 5 decimals. This can be tweaked for more precision.
+        ans.append ((day.date,round((((day.open/getSma(day.date))-1)*100),2)))  #rounded to 5 decimals. This can be tweaked for more precision.
     ans = sorted(ans,key=lambda x : (x[1]),reverse=True)     # abs(x[1]) if we just the biggest value change instead of biggest positive change   
     return ans
 
@@ -112,12 +117,12 @@ class Day:
         self.month = self.date_as_list[1]
         self.year = self.date_as_list[2]
         
-        self.close = close
+        self.close = float(close.strip(" $"))
         self.volume = int(volume)    
-        self.open = float(open.replace("$",""))        
-        self.high = high      
-        self.low = low
-        self.p_change = str(round(abs(float(self.high.replace("$",""))-float(self.low.replace("$",""))),2))
+        self.open = float(open.strip(" $"))        
+        self.high = float(high.strip(" $"))      
+        self.low = float(low.strip(" $"))
+        self.p_change = str(round(abs(self.high-self.low),2))
 
     def toString(self):
         return((self.date,self.close,self.volume,self.open,self.high,self.low,self.p_change))

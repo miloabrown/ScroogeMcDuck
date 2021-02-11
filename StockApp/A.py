@@ -7,4 +7,4 @@
 
 # Example: In Apple stock historical data the Close/Last price increased 3 days in a row between 01/06/2021 and 01/08/2021. 
 
-✔
+# ✔

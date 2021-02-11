@@ -9,25 +9,25 @@
 #sma(n) = (n-1.close+n-2.close+n-3.close+n-4.close+n-5.close)/5
 #(n.open/sma)-1
 
-def bestOpen(dates):
-    dates_cp = dates.copy()
+# def bestOpen(dates):
+#     dates_cp = dates.copy()
 
-    dates_cp = sorted(dates_cp,key=lambda x: ((x.open/getSma(x.date))-1)
+#     dates_cp = sorted(dates_cp,key=lambda x: ((x.open/getSma(x.date))-1)
 
-def getSma(date):           #   function to get the sma5 for given date
-    previous5 = []
-    info_index = 0
-    for index,day in enumerate(info):
-        if day.date == date:
-            info_index = index       
-    if info_index<5:
-        for i in (info[0:info_index]):
-            previous5.append(i)
-    else:
-        for i in (info[info_index-5:info_index]):
-            previous5.append(i)
-    sum =0
-    for day in previous5:
-        sum+=float(day.close.replace("$",""))
-    sma = sum/5
-    return sma
+# def getSma(date):           #   function to get the sma5 for given date
+#     previous5 = []
+#     info_index = 0
+#     for index,day in enumerate(info):
+#         if day.date == date:
+#             info_index = index       
+#     if info_index<5:
+#         for i in (info[0:info_index]):
+#             previous5.append(i)
+#     else:
+#         for i in (info[info_index-5:info_index]):
+#             previous5.append(i)
+#     sum =0
+#     for day in previous5:
+#         sum+=float(day.close.replace("$",""))
+#     sma = sum/5
+#     return sma
