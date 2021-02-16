@@ -243,6 +243,6 @@ def GUI():
     root.mainloop()
     
 #Read file:
-readFile("StockApp\HistoricalQuotes.csv")
+readFile("HistoricalQuotes.csv")
 #Run Gui:
 GUI()
